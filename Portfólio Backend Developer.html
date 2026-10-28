@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Luiz Fernando — Backend Developer</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --line: #262d36;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #3fb950;
+      color-scheme: dark;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    html {
+      scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 56px);
+      scroll-behavior: smooth
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace
+    }
+
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 20px
+    }
+
+    header.nav {
+      position: sticky;
+      top: env(safe-area-inset-top, 0px);
+      background: rgba(13, 17, 23, .94);
+      border-bottom: 1px solid var(--line);
+      z-index: 5
+    }
+
+    header.nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      gap: 12px
+    }
+
+    .logo {
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      white-space: nowrap
+    }
+
+    nav a:hover {
+      color: var(--text)
+    }
+
+    .lang {
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 13px
+    }
+
+    .lang:hover {
+      border-color: var(--accent)
+    }
+
+    section {
+      padding: 72px 0 8px
+    }
+
+    h2 {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 500;
+      margin: 0 0 24px;
+      letter-spacing: .04em
+    }
+
+    h2::before {
+      content: "## ";
+      color: var(--muted)
+    }
+
+    .hero {
+      padding-top: 88px
+    }
+
+    .hi {
+      color: var(--accent);
+      font-size: 14px;
+      margin: 0 0 8px
+    }
+
+    h1 {
+      font-size: clamp(34px, 7vw, 56px);
+      line-height: 1.1;
+      margin: 0 0 12px
+    }
+
+    .role {
+      color: var(--muted);
+      font-size: clamp(14px, 2.6vw, 18px);
+      margin: 0 0 16px
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 2px 12px;
+      margin-bottom: 20px;
+      text-decoration: none
+    }
+
+    .tagline {
+      max-width: 600px;
+      margin: 0 0 28px
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+      background: none
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #04150a;
+      font-weight: 600
+    }
+
+    .btn:hover {
+      border-color: var(--accent)
+    }
+
+    p {
+      margin: 0 0 14px
+    }
+
+    .research {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-left-width: 4px;
+      border-radius: 8px;
+      padding: 24px
+    }
+
+    .research .kicker {
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin: 0 0 8px
+    }
+
+    .research h3 {
+      margin: 0 0 16px;
+      font-size: clamp(19px, 3.4vw, 24px);
+      line-height: 1.3
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .facts dt {
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .facts dd {
+      margin: 0;
+      font-size: 14px
+    }
+
+    .timeline {
+      border-left: 1px solid var(--line);
+      margin-left: 6px
+    }
+
+    .job {
+      position: relative;
+      padding: 0 0 32px 24px
+    }
+
+    .job::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 8px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent)
+    }
+
+    .job h3 {
+      margin: 0;
+      font-size: 18px
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 2px 0 10px
+    }
+
+    .sum {
+      margin: 0 0 10px
+    }
+
+    .job ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted)
+    }
+
+    .job li {
+      margin-bottom: 4px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column
+    }
+    .avatar{
+      width:132px;height:132px;border-radius:50%;
+      margin:0 0 24px;padding:4px;
+      border:2px solid var(--accent);
+      background:var(--surface);
+      overflow:hidden;
+      box-shadow:0 0 0 6px rgba(63,185,80,.12)
+     }
+    .avatar img{
+     width:100%;height:100%;display:block;
+     border-radius:50%;
+     object-fit:cover;
+     object-position:center 25%
+    }
+    @media (min-width:640px){
+     .avatar{width:168px;height:168px}
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 17px
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      flex: 1
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px
+    }
+
+    .tag {
+      font-size: 12px;
+      color: var(--accent);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 8px
+    }
+
+    .links {
+      display: flex;
+      gap: 14px;
+      font-size: 13px
+    }
+
+    .links a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .links a:hover {
+      border-color: var(--accent)
+    }
+
+    .badge {
+      align-self: flex-start;
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 4px;
+      padding: 0 8px;
+      margin-bottom: 10px
+    }
+
+    .skill h3 {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 10px;
+      font-weight: 500
+    }
+
+    .skill .tags {
+      margin-bottom: 0
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--text);
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 15px
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent)
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px
+    }
+
+    .contact-links a {
+      color: var(--text)
+    }
+
+    footer {
+      margin-top: 72px;
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 13px
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="wrap">
+      <span class="logo mono">~/luiz-fernando</span>
+      <nav class="mono">
+        <a href="#" data-go="sobre" data-i="n_about"></a>
+        <a href="#" data-go="pesquisa" data-i="n_research"></a>
+        <a href="#" data-go="exp" data-i="n_exp"></a>
+        <a href="#" data-go="proj" data-i="n_proj"></a>
+        <a href="#" data-go="skills" data-i="n_skills"></a>
+        <a href="#" data-go="contato" data-i="n_contact"></a>
+      </nav>
+      <button class="lang mono" id="lang">EN</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="avatar">
+        <img src="foto.png" alt="Luiz Fernando" width="168" height="168" loading="eager">
+      </div>
+      <p class="hi mono" data-i="hi"></p>
+      <h1>Luiz Fernando</h1>
+      <p class="role mono">Backend Developer | PHP · .NET · Integrations · SQL</p>
+      <a class="pill mono" href="#" data-go="pesquisa" data-i="pill"></a>
+      <p class="tagline" data-i="tag"></p>
+      <div class="btns">
+        <a class="btn primary" href="#" data-go="proj" data-i="b_proj"></a>
+        <a class="btn" href="#" data-i="b_cv"></a>
+        <a class="btn" href="#" data-go="contato" data-i="b_contact"></a>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <h2 class="mono" data-i="h_about"></h2>
+      <p data-i="a1"></p>
+      <p data-i="a2"></p>
+      <p data-i="a3"></p>
+      <p data-i="a4"></p>
+    </section>
+
+    <section id="pesquisa">
+      <h2 class="mono" data-i="h_research"></h2>
+      <article class="research">
+        <p class="kicker mono" data-i="r_kicker"></p>
+        <h3 data-i="r_title"></h3>
+        <p data-i="r1"></p>
+        <p data-i="r2"></p>
+        <p data-i="r3"></p>
+        <dl class="facts">
+          <div>
+            <dt class="mono" data-i="r_inst"></dt>
+            <dd>Faculdade Impacta</dd>
+          </div>
+          <div>
+            <dt class="mono" data-i="r_adv"></dt>
+            <dd>Prof. Kyung Moo Kim</dd>
+          </div>
+          <div>
+            <dt class="mono" data-i="r_per"></dt>
+            <dd>2025 – 2026</dd>
+          </div>
+        </dl>
+        <div class="tags mono" style="margin:0" data-tags="r_tags"></div>
+      </article>
+    </section>
+
+    <section id="exp">
+      <h2 class="mono" data-i="h_exp"></h2>
+      <div class="timeline">
+        <div class="job">
+          <h3>55PBX</h3>
+          <div class="meta mono"><span data-i="role"></span> · 2024 — <span data-i="now"></span></div>
+          <p class="sum" data-i="s55"></p>
+          <ul data-list="j55"></ul>
+        </div>
+        <div class="job">
+          <h3>Advice</h3>
+          <div class="meta mono"><span data-i="role"></span> · 2023 — 2024</div>
+          <p class="sum" data-i="sadv"></p>
+          <ul data-list="jadv"></ul>
+        </div>
+        <div class="job">
+          <h3>Reserve</h3>
+          <div class="meta mono"><span data-i="role"></span> · 2022 — 2023</div>
+          <p class="sum" data-i="sres"></p>
+          <ul data-list="jres"></ul>
+        </div>
+        <div class="job">
+          <h3>MarketUP</h3>
+          <div class="meta mono"><span data-i="role"></span> · 2021 — 2022</div>
+          <p class="sum" data-i="smkt"></p>
+          <ul data-list="jmkt"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="proj">
+      <h2 class="mono" data-i="h_proj"></h2>
+      <div class="grid">
+        <article class="card">
+          <h3>OCR_Reader</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
+          <div class="tags mono"><span class="tag">Python</span><span class="tag">OCR</span><span class="tag">API</span>
+          </div>
+          <div class="links mono"><a href="#">GitHub</a><a href="#">Demo</a><a href="#">Docs</a></div>
+        </article>
+        <article class="card"><span class="badge mono" data-i="wip"></span>
+          <h3>Projeto 02</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
+          <div class="tags mono"><span class="tag">PHP</span><span class="tag">SQL</span></div>
+          <div class="links mono"><a href="#">GitHub</a><a href="#">Docs</a></div>
+        </article>
+        <article class="card"><span class="badge mono" data-i="wip"></span>
+          <h3>Projeto 03</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
+          <div class="tags mono"><span class="tag">.NET</span><span class="tag">REST</span></div>
+          <div class="links mono"><a href="#">GitHub</a><a href="#">Demo</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="mono" data-i="h_skills"></h2>
+      <div class="grid">
+        <div class="skill">
+          <h3 class="mono">Languages</h3>
+          <div class="tags mono"><span class="tag">C#</span><span class="tag">SQL</span><span
+              class="tag">PHP</span><span class="tag">Python</span></div>
+        </div>
+        <div class="skill">
+          <h3 class="mono">Backend</h3>
+          <div class="tags mono"><span class="tag">.NET</span><span class="tag">REST APIs</span><span
+              class="tag">Integrations</span><span class="tag">Asterisk</span></div>
+        </div>
+        <div class="skill">
+          <h3 class="mono">Databases</h3>
+          <div class="tags mono"><span class="tag">SQL Server</span><span class="tag">MySQL</span><span
+              class="tag">PostgreSQL</span><span class="tag">Stored Procedures</span></div>
+        </div>
+        <div class="skill">
+          <h3 class="mono">Tools</h3>
+          <div class="tags mono"><span class="tag">Git</span><span class="tag">Docker</span><span
+              class="tag">Linux</span></div>
+        </div>
+        <div class="skill">
+          <h3 class="mono">Research</h3>
+          <div class="tags mono" data-tags="sk_research"></div>
+        </div>
+        <div class="skill">
+          <h3 class="mono">Soft Skills</h3>
+          <div class="tags mono"><span class="tag">Lorem</span><span class="tag">Ipsum</span><span
+              class="tag">Dolor</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <h2 class="mono" data-i="h_contact"></h2>
+      <p data-i="c_text"></p>
+      <div class="contact-links mono"><a href="luizfernandocoelhodasilva2@gmail.com">luizfernandocoelhodasilva2@gmail.com</a><a href="https://www.linkedin.com/in/luiz-fernando-dev/">LinkedIn</a><a
+          href="https://github.com/LuizFernando2-prog">GitHub</a></div>
+      <form action="https://formspree.io/f/myeewqbv" method="POST" id="form">
+        <input name="name" data-ph="f_name" required>
+        <input name="email" type="email" data-ph="f_email" required>
+        <textarea name="message" rows="4" data-ph="f_msg" required></textarea>
+        <button class="btn primary" type="submit" data-i="f_send"></button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap mono">© 2026 Luiz Fernando</div>
+  </footer>
+
+  <script>
+    var D = {
+      pt: {
+        n_about: "sobre", n_research: "pesquisa", n_exp: "experiência", n_proj: "projetos", n_skills: "skills", n_contact: "contato",
+        hi: "// olá, eu sou", pill: "● Iniciação científica em teoria dos grafos",
+        tag: "Desenvolvedor de software com experiência profissional desde 2021, atuando no desenvolvimento e na manutenção de sistemas, integração entre aplicações, construção de APIs e otimização de rotinas de banco de dados. Experiência com C#, .NET e SQL Server em sistemas corporativos e soluções para diferentes necessidades de negócio.",
+        b_proj: "Ver Projetos", b_cv: "Baixar Currículo", b_contact: "Contato",
+        h_about: "sobre mim",
+        a1: "Sou desenvolvedor de software com experiência em projetos backend, integração de sistemas e manutenção de aplicações corporativas. Desde o início da minha trajetória profissional, em 2021, venho trabalhando com diferentes tecnologias e desafios de desenvolvimento, especialmente no ecossistema .NET e em bancos de dados relacionais.",
+        a2: "Ao longo da minha experiência, participei do desenvolvimento e da evolução de sistemas ERP, PDV e aplicações voltadas à área de compliance, além de trabalhar com APIs, procedimentos armazenados, funções de banco de dados e manutenção de sistemas legados.",
+        a3: "Tenho interesse em aprofundar meus conhecimentos em arquitetura de software, engenharia de backend, integração entre sistemas e desenvolvimento de soluções escaláveis. Busco evoluir constantemente minhas habilidades técnicas e transformar requisitos de negócio em soluções eficientes e sustentáveis.",
+        a4: "Atualmente, curso Engenharia da Computação e desenvolvo minha trajetória com foco no backend, ampliando meus conhecimentos em desenvolvimento de software e boas práticas de engenharia.",
+        h_research: "iniciação científica e pesquisa", r_kicker: "Pesquisa acadêmica · desde 2025",
+        r_title: "Modelagem de Fluxos em Transporte Urbano com Teoria dos Grafos",
+        r1: "Pesquisa acadêmica iniciada em 2025, voltada à aplicação da teoria dos grafos na análise da mobilidade urbana.",
+        r2: "O trabalho investiga a modelagem de fluxos de transporte e a influência de redes sociais na dinâmica de deslocamento urbano, explorando modelos computacionais para estudar padrões de mobilidade e possibilidades de otimização de rotas e fluxos.",
+        r3: "A pesquisa combina programação, análise de dados e modelagem matemática para investigar problemas de infraestrutura e transporte urbano.",
+        r_inst: "Instituição", r_adv: "Orientação", r_per: "Período",
+        r_tags: ["Teoria dos Grafos", "Mobilidade Urbana", "Análise de Dados", "Modelagem Matemática"],
+        sk_research: ["Teoria dos Grafos", "Modelagem Matemática", "Análise de Dados"],
+        h_exp: "experiência", role: "Cargo", now: "atual",
+        s55: "Atuação no desenvolvimento e na manutenção de sistemas backend para soluções de telecomunicações e PABX em nuvem.",
+        j55: ["Manutenção e desenvolvimento do sistema Realtime.", "Modelagem e refatoração de componentes relacionados ao Integrassion Permission.", "Análise de casos e investigação de problemas em aplicações existentes.", "Manutenção e aprimoramento do sistema legado de telefonia baseado em Asterisk.", "Contribuição para a evolução e a estabilidade das aplicações utilizadas pela plataforma."],
+        sadv: "Atuação no desenvolvimento e na manutenção de soluções de software voltadas a compliance, prevenção à lavagem de dinheiro e atendimento a requisitos regulatórios.",
+        jadv: ["Manutenção e desenvolvimento do sistema Eguardian.", "Desenvolvimento e integração de APIs entre sistemas.", "Participação no desenvolvimento da solução NoTrick, voltada a demandas de regulamentação do setor financeiro.", "Implementação de funcionalidades e manutenção de aplicações existentes."],
+        sres: "Atuação no desenvolvimento e na manutenção de rotinas de banco de dados, análise de informações e evolução de funcionalidades em sistemas corporativos.",
+        jres: ["Desenvolvimento e manutenção de procedures e functions em bancos de dados.", "Análise de dados para identificação de inconsistências e apoio à resolução de problemas.", "Correção de bugs e manutenção de funcionalidades existentes.", "Desenvolvimento de novas funcionalidades para atender às necessidades dos sistemas."],
+        smkt: "Participação no desenvolvimento e na manutenção de um sistema de gestão empresarial, com funcionalidades de ERP, ponto de venda (PDV), emissão de notas fiscais e comércio eletrônico.",
+        jmkt: ["Desenvolvimento e manutenção de funcionalidades utilizando C# e SQL Server.", "Integração entre sistemas por meio de APIs.", "Desenvolvimento de rotinas de banco de dados, incluindo procedures e functions.", "Atuação em funcionalidades de emissão de notas fiscais e ponto de venda.", "Manutenção e evolução de recursos da loja virtual e do comércio eletrônico."],
+        h_proj: "projetos", wip: "Em construção", h_skills: "skills",
+        h_contact: "contato", c_text: "Vamos conversar? Envie uma mensagem ou fale comigo pelos links abaixo.",
+        f_send: "Enviar", f_name: "Nome", f_email: "E-mail", f_msg: "Mensagem"
+      },
+      en: {
+        n_about: "about", n_research: "research", n_exp: "experience", n_proj: "projects", n_skills: "skills", n_contact: "contact",
+        hi: "// hi, I’m", pill: "● Undergraduate research in graph theory",
+        tag: "Software developer with professional experience since 2021, working on system development and maintenance, application integration, API construction and database routine optimization. Experienced in C#, .NET and SQL Server, building enterprise systems and solutions for diverse business needs.",
+        b_proj: "View Projects", b_cv: "Download Résumé", b_contact: "Contact",
+        h_about: "about me",
+        a1: "I am a software developer experienced in backend projects, systems integration and enterprise application maintenance. Since starting my professional journey in 2021, I have worked with various technologies and development challenges, particularly within the .NET ecosystem and relational databases.",
+        a2: "Throughout my career, I have taken part in the development and evolution of ERP systems, POS systems and compliance-focused applications, as well as working with APIs, stored procedures, database functions and legacy system maintenance.",
+        a3: "I am interested in deepening my knowledge of software architecture, backend engineering, systems integration and scalable solutions. I constantly work to improve my technical skills and turn business requirements into efficient, sustainable solutions.",
+        a4: "I am currently pursuing a degree in Computer Engineering and building my career with a focus on backend development, expanding my knowledge of software engineering best practices.",
+        h_research: "undergraduate research", r_kicker: "Academic research · since 2025",
+        r_title: "Modeling Urban Transport Flows with Graph Theory",
+        r1: "Academic research started in 2025, focused on applying graph theory to the analysis of urban mobility.",
+        r2: "The work investigates the modeling of transport flows and the influence of social networks on urban commuting dynamics, exploring computational models to study mobility patterns and opportunities to optimize routes and flows.",
+        r3: "The research combines programming, data analysis and mathematical modeling to investigate infrastructure and urban transport problems.",
+        r_inst: "Institution", r_adv: "Advisor", r_per: "Period",
+        r_tags: ["Graph Theory", "Urban Mobility", "Data Analysis", "Mathematical Modeling"],
+        sk_research: ["Graph Theory", "Mathematical Modeling", "Data Analysis"],
+        h_exp: "experience", role: "Role", now: "present",
+        s55: "Backend development and maintenance for cloud PBX and telecommunications solutions.",
+        j55: ["Maintenance and development of the Realtime system.", "Modeling and refactoring of components related to Integrassion Permission.", "Case analysis and troubleshooting of issues in existing applications.", "Maintenance and improvement of the legacy Asterisk-based telephony system.", "Contribution to the evolution and stability of the applications used by the platform."],
+        sadv: "Development and maintenance of software for compliance, anti-money laundering and regulatory requirements.",
+        jadv: ["Maintenance and development of the Eguardian system.", "Development and integration of APIs between systems.", "Participation in the development of NoTrick, built to meet financial-sector regulatory demands.", "Implementation of new features and maintenance of existing applications."],
+        sres: "Development and maintenance of database routines, data analysis and feature evolution in enterprise systems.",
+        jres: ["Development and maintenance of stored procedures and functions.", "Data analysis to identify inconsistencies and support problem solving.", "Bug fixing and maintenance of existing features.", "Development of new features to meet system needs."],
+        smkt: "Development and maintenance of a business management system covering ERP, point of sale (POS), invoicing and e-commerce.",
+        jmkt: ["Development and maintenance of features using C# and SQL Server.", "System integration through APIs.", "Development of database routines, including procedures and functions.", "Work on invoicing and point-of-sale features.", "Maintenance and evolution of online store and e-commerce features."],
+        h_proj: "projects", wip: "Under construction", h_skills: "skills",
+        h_contact: "contact", c_text: "Let’s talk! Send a message or reach me through the links below.",
+        f_send: "Send", f_name: "Name", f_email: "Email", f_msg: "Message"
+      }
+    };
+    var lang = "pt";
+    function apply() {
+      var d = D[lang];
+      document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+      document.querySelectorAll("[data-i]").forEach(function (el) { el.textContent = d[el.dataset.i] });
+      document.querySelectorAll("[data-ph]").forEach(function (el) { el.placeholder = d[el.dataset.ph] });
+      document.querySelectorAll("[data-list]").forEach(function (el) {
+        el.innerHTML = "";
+        d[el.dataset.list].forEach(function (t) { var li = document.createElement("li"); li.textContent = t; el.appendChild(li) });
+      });
+      document.querySelectorAll("[data-tags]").forEach(function (el) {
+        el.innerHTML = "";
+        d[el.dataset.tags].forEach(function (t) { var s = document.createElement("span"); s.className = "tag"; s.textContent = t; el.appendChild(s) });
+      });
+      document.getElementById("lang").textContent = lang === "pt" ? "EN" : "PT";
+    }
+    document.getElementById("lang").onclick = function () {
+      lang = lang === "pt" ? "en" : "pt";
+      try { localStorage.setItem("lang", lang) } catch (e) { }
+      apply();
+    };
+    try { var s = localStorage.getItem("lang"); if (s === "en" || s === "pt") lang = s } catch (e) { }
+    apply();
+    document.querySelectorAll("[data-go]").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); document.getElementById(a.dataset.go).scrollIntoView({ behavior: "smooth" }) });
+    });
+  </script>
+</body>
+
+</html>
